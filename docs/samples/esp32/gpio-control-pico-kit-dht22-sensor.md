@@ -62,19 +62,81 @@ The following picture summarizes the connections for this project:
 
 ![image](/images/samples/esp32/gpio-temperature/wiring.png)
 
-
-
 ## Device provisioning
 
-## Dashboard creation
+This step contains instructions that are necessary to connect your device to ThingsBoard.
+
+Open ThingsBoard Web UI (http://localhost:8080) in browser and login as tenant administrator
+
+ - login: tenant@thingsboard.org
+ - password: tenant
+ 
+Go to "Devices" section. Click "+" button and create a device with the name "ESP32 Pico Device". Set "Device type" to "default". 
+
+![image](/images/samples/esp32/gpio-temperature/device.png)
+
+Once device created, open its details and click "Manage credentials".
+
+Copy auto-generated access token from the "Access token" field. Please save this device token. It will be referred to later as **$ACCESS_TOKEN**.
+
+![image](/images/samples/esp32/gpio-temperature/credentials.png)
+
+## Provision your dashboard
+
+Download the dashboard file using this [**link**](/docs/samples/esp32/resources/esp32_dht22_temp_and_gpio_dashboard.json). 
+Use import/export [**instructions**](/docs/user-guide/ui/dashboards/#dashboard-importexport) to import the dashboard to your ThingsBoard instance.
 
 ## Creating ESP32 firmware
 
+Easiest way to program ESP32 Pico Kit is to use Arduino IDE. Following sectoins are describing that approach. 
+
 ### ESP32 and Arduino IDE setup
+
+First you will need Arduino IDE and all related software installed. 
+
+Download and install [Arduino IDE](https://www.arduino.cc/en/Main/Software).
+
+The Pico board support must be added to Arduino IDE before any program can be built and flashed into ESP32. To do so, install ESP32 package as described below:
+
+1. Open Aduino IDE.
+
+1. Open "File" menu, select "Preferences", and add a board manager URLs
+   
+   ```
+   https://dl.espressif.com/dl/package_esp32_index.json,http://arduino.esp8266.com/stable/package_esp8266com_index.json
+   ```
+
+   into "Additional Boards Manager URL" field, as shown below:
+
+   ![image](/images/samples/esp32/gpio-temperature/add-esp32-url.png)
+
+1. In "Tools" menu, select "Board...". In a top of the list, select "Board manager".
+
+1. Enter "ESP32" in the search field. Click "Install"
+
+   ![image](/images/samples/esp32/gpio-temperature/install-esp32-arduino.png)
 
 ### Install Arduino ThingsBoard SDK
 
+To simplify application development, install the ThingsBoard Arduino SDK from standart Arduino library repository:
+
+1. Click on "Sketch" menu. Open "Include Library..." submenu. Select "Manage Libraries".
+
+1. Type "ThingsBoard" in the search field.
+
+1. Click install on "ThingsBoard Arduino SDK" library.
+
+From now on, you can use ThingsBoard SDK right from Arduino IDE.
+
 ### Install ESP32 DHT22 driver
+
+### Connect ESP32 Pico to PC
+
+### Prepare and upload sketch
+
+## Troubleshooting
+
+## Data visualization
 
 ## See also
 
