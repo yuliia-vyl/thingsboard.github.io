@@ -31,11 +31,38 @@ Current GPIO state and GPIO control widget is visualized using built-in customiz
   ![image](/images/samples/arduino/temperature/dht22-pinout.png)
 
  - 6 LEDs
- - 6 Resistors
+ - 6 Resistors in range between 68Ω and 100Ω
  - Breadboard
  - Micro-USB cable
 
-## Connection diagram
+## Wiring
+
+### DHT22 connection
+
+Pin | Connect to
+-----------|-----------
+DHT22 VCC |  Pico 5V
+DHT22 DATA | Pico 33
+ 
+### LEDs connection
+
+Pin | Connect to
+-----------|-----------
+LED1 Anode | Pico 32 trough resistor (68Ω - 100Ω)
+LED2 Anode | Pico 26 trough resistor (68Ω - 100Ω)
+LED3 Anode | Pico 25 trough resistor (68Ω - 100Ω)
+LED4 Anode | Pico 19 trough resistor (68Ω - 100Ω)
+LED5 Anode | Pico 22 trough resistor (68Ω - 100Ω)
+LED6 Anode | Pico 21 trough resistor (68Ω - 100Ω)
+All LEDs cathodes | Pico Ground
+
+### Connection diagram
+
+The following picture summarizes the connections for this project:
+
+![image](/images/samples/esp32/gpio-temperature/wiring.png)
+
+
 
 ## Device provisioning
 
