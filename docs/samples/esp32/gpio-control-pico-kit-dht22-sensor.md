@@ -1,8 +1,7 @@
 ---
 layout: docwithnav
 title: ESP32 Pico Kit GPIO control and DHT22 sensor monitor using ThingsBoard Arduino SDK
-description: ThingsBoard IoT Platform sample for ESP32 Pico Kit GPIO control and temperature/humidity monitor using ThingsBoard Arduino SDK 
-
+description: ThingsBoard IoT Platform sample for ESP32 Pico Kit GPIO control and temperature/humidity monitor using ThingsBoard Arduino SDK
 ---
 
 * TOC
@@ -14,11 +13,15 @@ description: ThingsBoard IoT Platform sample for ESP32 Pico Kit GPIO control and
 
 [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) is a series of low-cost, low-power system-on-a-chip microcontrollers with integrated self-contained Wi-Fi and dual-mode Bluetooth. ESP32 is a successor of ESP8266 chip.
 
-This sample application will allow you to control GPIO of your ESP32 device using ThingsBoard web UI and display humidity/temperature data from DHT22 sensor. We will observe GPIO control using LEDs connected to the pins. The purpose of this application is to demonstrate ThingsBoard [RPC capabilities](/docs/user-guide/rpc/) and .
+This sample application will allow you to control GPIO of your ESP32 device using ThingsBoard web UI and display humidity/temperature data from DHT22 sensor. We will observe GPIO control using LEDs connected to the pins. The purpose of this application is to demonstrate ThingsBoard [RPC capabilities](/docs/user-guide/rpc/) and ThingsBoard [Telemetry](/docs/user-guide/telemetry/).
 
 The application that is running on ESP32 is written using ThingsBoard Arduino SDK which is quite simple and easy to understand.
 
-Current GPIO state and GPIO control widget is visualized using built-in customizable dashboard. 
+Current GPIO state and GPIO control widget is visualized using built-in customizable dashboard.
+
+Once you complete this sample/tutorial, you will see your sensor data on the following dashboard.
+
+ ![image](/images/samples/esp32/gpio-temperature/dashboard.png)
 
 ## List of hardware
 
@@ -43,7 +46,7 @@ Pin | Connect to
 -----------|-----------
 DHT22 VCC |  Pico 5V
 DHT22 DATA | Pico 33
- 
+
 ### LEDs connection
 
 Pin | Connect to
@@ -70,8 +73,8 @@ Open ThingsBoard Web UI (http://localhost:8080) in browser and login as tenant a
 
  - login: tenant@thingsboard.org
  - password: tenant
- 
-Go to "Devices" section. Click "+" button and create a device with the name "ESP32 Pico Device". Set "Device type" to "default". 
+
+Go to "Devices" section. Click "+" button and create a device with the name "ESP32 Pico Device". Set "Device type" to "default".
 
 ![image](/images/samples/esp32/gpio-temperature/device.png)
 
@@ -83,25 +86,25 @@ Copy auto-generated access token from the "Access token" field. Please save this
 
 ## Provision your dashboard
 
-Download the dashboard file using this [**link**](/docs/samples/esp32/resources/esp32-dht22-temp-and-gpio-dashboard.json). 
+Download the dashboard file using this [**link**](/docs/samples/esp32/resources/esp32-dht22-temp-and-gpio-dashboard.json).
 Use import/export [**instructions**](/docs/user-guide/ui/dashboards/#dashboard-importexport) to import the dashboard to your ThingsBoard instance.
 
 ## Creating ESP32 firmware
 
-Easiest way to program ESP32 Pico Kit is to use Arduino IDE. Following sectoins are describing that approach. 
+Easiest way to program ESP32 Pico Kit is to use Arduino IDE. Following sectoins are describing that approach.
 
 ### ESP32 and Arduino IDE setup
 
-First you will need Arduino IDE and all related software installed. 
+First you will need Arduino IDE and all related software installed.
 
 Download and install [Arduino IDE](https://www.arduino.cc/en/Main/Software).
 
 The Pico board support must be added to Arduino IDE before any program can be built and flashed into ESP32. To do so, install ESP32 package as described below:
 
-1. Open Aduino IDE.
+1. Open Arduino IDE.
 
 1. Open **File -> Preferences** menu, and add a board manager URLs
-   
+
    ```
    https://dl.espressif.com/dl/package_esp32_index.json,http://arduino.esp8266.com/stable/package_esp8266com_index.json
    ```
@@ -144,14 +147,14 @@ ESP32 Pico Kit does not require a sophisticated connection. Just plug micro-USB 
 
 ### Prepare and upload sketch
 
-Download and open **esp32-dht-gpio.ino** sketch. 
+Download and open **esp32-dht-gpio.ino** sketch.
 
 **Note** You need to edit following constants and variables in the sketch:
 
 - `WIFI_AP` - name of your access point
 - `WIFI_PASSWORD` - access point password
 - `TOKEN` - the **$ACCESS_TOKEN** from ThingsBoard configuration step.
-- `THINGSBOARD_SERVER` - ThingsBoard HOST/IP address that is accessible within your wifi network. Specify "demo.thingsboard.io" if you are using [live demo](https://demo.thingsboard.io/) server.
+- `THINGSBOARD_SERVER` - ThingsBoard HOST/IP address that is accessible within your wifi network. Specify `demo.thingsboard.io` if you are using [live demo](https://demo.thingsboard.io/) server.
 
 {% capture tabspec %}arduino-sketch
 esp32-dht-gpio,esp32-dht-gpio.ino,c,resources/esp32-dht-gpio.ino,/docs/samples/esp32/resources/esp32-dht-gpio.ino{% endcapture %}
@@ -159,7 +162,35 @@ esp32-dht-gpio,esp32-dht-gpio.ino,c,resources/esp32-dht-gpio.ino,/docs/samples/e
 
 ## Troubleshooting
 
-## Data visualization
+In order to to perform troubleshooting, you must check ESP32 Pico logs. For that, simply open **Serial Monitor** in the Arduino IDE.
+
+## Data visualization and GPIO control
+
+Finally, open ThingsBoard Web UI. You can access this dashboard by logging in as a tenant administrator.
+
+In case of local installation:
+
+ - login: tenant@thingsboard.org
+ - password: tenant
+
+In case of live-demo server:
+
+ - login: your live-demo username (email)
+ - password: your live-demo password
+
+See **[live-demo](/docs/user-guide/live-demo/)** page for more details how to get your account.
+
+Go to **"Devices"** section and locate **"ESP32 Pico Device"**, open device details and switch to **"Latest telemetry"** tab.
+If all is configured correctly you should be able to see latest values of *"temperature"* and *"humidity"* in the table.
+
+![image](/images/samples/esp32/gpio-temperature/telemetry.png)
+
+After, open **"Dashboards"** section then locate and open **"ESP32 Pico Dashboard"**.
+As a result, you will see a time-series chart displaying temperature and humidity level (similar to dashboard image in the introduction).
+
+You should also observe a GPIO control for your device. It consists of two widgets: one is for controlling LED blink speed (in milliseconds) and second for turning individual LEDs on and off.
+
+You can switch status of GPIOs using control panel. As a result, you will see LEDs status change on the device. To control LED blink speed, simply turn a knob and observe a speed change.
 
 ## See also
 
@@ -172,7 +203,7 @@ Browse other [samples](/docs/samples) or explore guides related to main ThingsBo
  - [Data Visualization](/docs/user-guide/visualization/) - how to visualize collected data.
 
 {% include templates/feedback.md %}
- 
+
 {% include socials.html %}
 
 ## Next steps
