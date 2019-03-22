@@ -321,6 +321,10 @@
       title: Temperature upload over MQTT using Arduino UNO, ESP8266 and DHT22 sensor
       subtitle: Contains wiring diagram, sketch and dashboard setup guide.
       pe: false
+    - title: Pressure upload over HTTP using Arduino UNO, SIM900 GSM shield and BMP280 sensor
+      path: /docs/samples/arduino/sim900-bmp280-pressure/
+      subtitle: Contains wiring diagram, sketch and dashboard setup guide.
+      pe: false
     - path: /docs/samples/esp8266/temperature/
       title: Temperature upload over MQTT using ESP8266 and DHT22 sensor
       subtitle: Contains wiring diagram, sketch, dashboard setup guide and demonstration video.

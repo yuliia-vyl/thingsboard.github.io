@@ -52,6 +52,8 @@ toc:
       path: /docs/samples/arduino/
     - title: Temperature upload over MQTT using Arduino UNO, ESP8266 and DHT22 sensor
       path: /docs/samples/arduino/temperature/
+    - title: Pressure upload over HTTP using Arduino UNO, SIM900 GSM shield and BMP280 sensor
+      path: /docs/samples/arduino/sim900-bmp280-pressure/
   - title: ESP8266
     section:
     - title: ESP8266 overview
